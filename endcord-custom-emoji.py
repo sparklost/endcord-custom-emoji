@@ -4,7 +4,7 @@ import re
 from endcord import formatter
 
 EXT_NAME = "Custom Emoji"
-EXT_VERSION = "0.1.0"
+EXT_VERSION = "0.1.1"
 EXT_ENDCORD_VERSION = "1.5.0"
 EXT_DESCRIPTION = "An extension that adds command to insert any discord emoji or sticker as image url, so it will appear as embed"
 EXT_SOURCE = "https://github.com/sparklost/endcord-custom-emoji"
@@ -23,6 +23,7 @@ class Extension:
 
     def __init__(self, app):
         self.app = app
+        self.hide_hyperlink = int(app.config.get("ext_custom_hide_hyperlink", True))
         try:
             self.emoji_size = int(app.config.get("ext_custom_emoji_size", 32))
             self.emoji_size = min(EMOJI_SIZES, key=lambda x: abs(x - self.emoji_size))
@@ -43,12 +44,16 @@ class Extension:
             emoji_string = command_text[20:].strip()
             match = re.match(formatter.match_d_emoji, emoji_string)
             if match:
+                emoji_name = match.group(2)
                 emoji_id = match.group(3)
                 if not emoji_id or not emoji_id.isdigit():
                     self.app.update_extra_line("Invalid emoji", color=19)
                     return True
                 url = f"https://{self.app.discord.cdn_host}/emojis/{emoji_id}.png?size={self.emoji_size}&quality=lossless&1"
-                self.app.insert_into_input_store(f"[{VS17}]({url})")
+                if self.hide_hyperlink:
+                    self.app.insert_into_input_store(f"[{VS17}]({url})")
+                else:
+                    self.app.insert_into_input_store(f"[{emoji_name}]({url})")
                 return True
 
             match = re.match(formatter.match_sticker_id, emoji_string)

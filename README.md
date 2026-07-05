@@ -15,6 +15,8 @@ Available options:
 All extension options are under `[main]` section in endcord config. This extension options are always prefixed with `ext_custom_emoji_`.  
 
 ### Settings options
+- `ext_custom_hide_hyperlink = True`  
+    Hide hyperlink by putting invisible variation selector 17 character instead of emoji name.
 - `ext_custom_emoji_size = 32`  
     Image size for sent emoji.
 - `ext_custom_sticker_size = 160`  
