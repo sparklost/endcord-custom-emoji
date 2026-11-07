@@ -4,8 +4,8 @@ import re
 from endcord import formatter
 
 EXT_NAME = "Custom Emoji"
-EXT_VERSION = "0.1.1"
-EXT_ENDCORD_VERSION = "1.5.0"
+EXT_VERSION = "0.1.2"
+EXT_ENDCORD_VERSION = "1.6.0"
 EXT_DESCRIPTION = "An extension that adds command to insert any discord emoji or sticker as image url, so it will appear as embed"
 EXT_SOURCE = "https://github.com/sparklost/endcord-custom-emoji"
 EXT_COMMAND_ASSIST = (
